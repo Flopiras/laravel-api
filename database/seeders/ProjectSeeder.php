@@ -3,6 +3,7 @@
 namespace Database\Seeders;
 
 use App\Models\Project;
+use App\Models\Technology;
 use App\Models\Type;
 use Faker\Generator;
 use Illuminate\Database\Console\Seeds\WithoutModelEvents;
@@ -19,6 +20,7 @@ class ProjectSeeder extends Seeder
     public function run(Generator $faker): void
     {
         $type_ids = Type::pluck('id')->toArray();
+        $technology_ids = Technology::pluck('id')->toArray();
 
         Storage::makeDirectory('project_images');
         for ($i = 0; $i < 50; $i++) {
@@ -32,6 +34,13 @@ class ProjectSeeder extends Seeder
             $project->link = $faker->url();
 
             $project->save();
+
+            $project_technologies = [];
+            foreach ($technology_ids as $technology_id) {
+                if (rand(0, 1)) $project_technologies[] = $technology_id;
+            }
+
+            $project->technologies()->attach($project_technologies);
         }
     }
 }
