@@ -21,7 +21,7 @@ class ProjectSeeder extends Seeder
         $type_ids = Type::pluck('id')->toArray();
 
         Storage::makeDirectory('project_images');
-        for ($i = 0; $i < 10; $i++) {
+        for ($i = 0; $i < 50; $i++) {
             $project = new Project();
 
             $project->type_id = Arr::random($type_ids);
