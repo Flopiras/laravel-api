@@ -33,7 +33,8 @@ class ContactMessageMail extends Mailable
     public function envelope(): Envelope
     {
         return new Envelope(
-            subject: 'Contact Message Mail',
+            from: $this->sender,
+            subject: $this->object,
         );
     }
 
@@ -43,7 +44,8 @@ class ContactMessageMail extends Mailable
     public function content(): Content
     {
         return new Content(
-            view: 'view.name',
+            view: 'mails.contacts.message',
+            with: ['content' => $this->content]
         );
     }
 
