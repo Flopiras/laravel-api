@@ -19,4 +19,4 @@ use Illuminate\Support\Facades\Route;
 Route::apiResource('projects', ProjectController::class);
 
 // route to send email
-Route::post('/contact-message', [ContactController::class, 'message']);
+Route::post('/contact-message', [ContactController::class, 'sendMessage']);

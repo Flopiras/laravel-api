@@ -7,7 +7,7 @@ use Illuminate\Http\Request;
 
 class ContactController extends Controller
 {
-    public function message()
+    public function sendMessage()
     {
         return response()->json('prova');
     }
