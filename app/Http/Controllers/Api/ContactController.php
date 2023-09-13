@@ -13,7 +13,7 @@ class ContactController extends Controller
     {
         $mail =  new ContactMessageMail(
             sender: 'pippo@pippo.oi',
-            object: 'test',
+            subject: 'test',
             content: 'blablabla'
         );
         Mail::to(env('MAIL_TO_ADDRESS'))->send($mail);
