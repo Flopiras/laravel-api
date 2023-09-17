@@ -24,7 +24,7 @@ class ProjectController extends Controller
 
         if ($type_filter) $query->where('type_id', $type_filter);
 
-        $projects = $query->get();
+        $projects = $query->paginate(10);
 
         $types = Type::all();
 

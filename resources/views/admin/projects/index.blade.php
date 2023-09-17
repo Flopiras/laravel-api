@@ -77,4 +77,8 @@
       </tbody>
     </table>
   </div>
+
+  @if ($projects->hasPages())
+    {{ $projects->links() }}
+  @endif
 @endsection
