@@ -23,7 +23,9 @@ class TechnologyController extends Controller
      */
     public function create()
     {
-        //
+        $technology = new Technology();
+
+        return view('admin.technologies.create', compact('technology'));
     }
 
     /**
@@ -31,7 +33,24 @@ class TechnologyController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $request->validate(
+            ['label' => 'required|string|max:50|unique:technologies'],
+            [
+                'label.required' => 'Il titolo è obbligatorio',
+                'label.unique' => 'Questo titolo esiste già',
+                'label.max:50' => 'Il titolo non può essere più lungo di 50 caratteri'
+            ]
+        );
+
+        $data = $request->all();
+
+        $technology = new Technology();
+        $technology->fill($data);
+        $technology->save();
+
+        return to_route('admin.technologies.show', $technology)
+            ->with('alert-message', 'Tecnologia aggiunta con successo!')
+            ->with('alert-type', 'success');
     }
 
     /**
