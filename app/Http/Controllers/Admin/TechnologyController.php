@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Admin;
 use App\Models\Technology;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Storage;
 
 class TechnologyController extends Controller
 {
@@ -82,6 +83,40 @@ class TechnologyController extends Controller
      */
     public function destroy(Technology $technology)
     {
-        //
+        $technology->delete();
+
+        return to_route('admin.technologies.index')->with('type', 'success')->with('message', 'Il progetto è stato eliminato con successo!');
+    }
+
+    /**
+     * Show trash storage.
+     */
+    public function trash()
+    {
+        $technologies = Technology::onlyTrashed()->get();
+        return view('admin.technologies.trash', compact('technologies'));
+    }
+
+    /**
+     * Definitive remove the specified resource from trash.
+     */
+    public function drop(string $id)
+    {
+        $technology = Technology::onlyTrashed()->findOrFail($id);
+
+        $technology->forceDelete();
+
+        return to_route('admin.technologies.trash')->with('type', 'success')->with('message', 'La tecnologia è stata eliminata definitivamente con successo!');
+    }
+
+    /**
+     * Restore the specified resource from trash.
+     */
+    public function restore(string $id)
+    {
+        $technology = Technology::onlyTrashed()->findOrFail($id);
+        $technology->restore();
+
+        return to_route('admin.technologies.show', compact('technology'))->with('type', 'info')->with('message', 'Il progetto è stato ripristinato!');
     }
 }
