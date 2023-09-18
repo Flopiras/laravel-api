@@ -4,6 +4,7 @@ use App\Http\Controllers\Guest\HomeController as GuestHomeController;
 use App\Http\Controllers\Admin\HomeController as AdminHomeController;
 use App\Http\Controllers\Admin\ProjectController;
 use App\Http\Controllers\ProfileController;
+use App\Http\Controllers\TechnologyController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -30,6 +31,13 @@ Route::prefix('/admin')->name('admin.')->middleware(['auth'])->group(function ()
     Route::delete('/progects/trash/{project}/drop', [ProjectController::class, 'drop'])->name('projects.drop'); //drop
 
     Route::resource('projects', ProjectController::class);
+
+    // technologies
+    Route::get('/technologies/trash', [TechnologyController::class, 'trash'])->name('technologies.trash'); //trash
+    Route::patch('/technologies/trash/{technology}/restore', [TechnologyController::class, 'restore'])->name('technologies.restore'); //restore
+    Route::delete('/technologies/trash/{technology}/drop', [TechnologyController::class, 'drop'])->name('technologies.drop'); //drop
+
+    Route::resource('technologies', TechnologyController::class);
 });
 
 Route::middleware('auth')->group(function () {
