@@ -20,10 +20,6 @@
     {{-- buttons --}}
     <div class="d-flex justify-content-end m-2">
 
-      {{-- edit --}}
-      <a href="{{ route('admin.technologies.edit', $technology) }}" class="btn btn-warning mx-3 mt-4 text-end"><i
-          class="fas fa-pencil"></i> Edit</a>
-
       {{-- delete --}}
       <form method="POST" action="{{ route('admin.technologies.destroy', $technology) }}" class="delete-form mt-4">
         @csrf
