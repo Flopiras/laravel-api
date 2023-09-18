@@ -5,6 +5,7 @@ use App\Http\Controllers\Admin\HomeController as AdminHomeController;
 use App\Http\Controllers\Admin\ProjectController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\Admin\TechnologyController;
+use App\Http\Controllers\Admin\TypeController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -38,6 +39,13 @@ Route::prefix('/admin')->name('admin.')->middleware(['auth'])->group(function ()
     Route::delete('/technologies/trash/{technology}/drop', [TechnologyController::class, 'drop'])->name('technologies.drop'); //drop
 
     Route::resource('technologies', TechnologyController::class);
+
+    // types
+    Route::get('/types/trash', [TypeController::class, 'trash'])->name('types.trash'); //trash
+    Route::patch('/types/trash/{technology}/restore', [TypeController::class, 'restore'])->name('types.restore'); //restore
+    Route::delete('/types/trash/{technology}/drop', [TypeController::class, 'drop'])->name('types.drop'); //drop
+
+    Route::resource('types', TypeController::class);
 });
 
 Route::middleware('auth')->group(function () {
